@@ -1,7 +1,9 @@
 package com.devinhouse.devinpharmacy.controller;
 
 import com.devinhouse.devinpharmacy.exception.CPFExistenteException;
+import com.devinhouse.devinpharmacy.exception.UsuarioNaoEcontratoException;
 import com.devinhouse.devinpharmacy.model.Usuarios;
+import com.devinhouse.devinpharmacy.model.dto.AtualizarUsuarioFarmaceuticoDTO;
 import com.devinhouse.devinpharmacy.model.dto.CriarUsuarioFarmaceuticoDTO;
 import com.devinhouse.devinpharmacy.model.dto.UsuarioFarmaceuticoDTO;
 import com.devinhouse.devinpharmacy.service.UsuarioService;
@@ -24,11 +26,24 @@ public class UsuariosController {
         try {
             UsuarioFarmaceuticoDTO novoUsuario = usuarioService.cadastrarUsuario(usuario);
             return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
-        } catch ( CPFExistenteException e) {
+        } catch (CPFExistenteException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/{identificador}")
+    public ResponseEntity<?> atualizarUsuario(@PathVariable("identificador") Long id, @Valid @RequestBody AtualizarUsuarioFarmaceuticoDTO usuario) {
+        try {
+            UsuarioFarmaceuticoDTO novoUsuario = usuarioService.atualizarUsuario(id, usuario);
+            return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
+        } catch (UsuarioNaoEcontratoException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 }
