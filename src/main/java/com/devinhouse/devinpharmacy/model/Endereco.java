@@ -1,14 +1,23 @@
 package com.devinhouse.devinpharmacy.model;
 
-public class Endereco {
+import jakarta.persistence.*;
 
+@Entity
+public class Endereco {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String cep;
+    @Column(nullable = false)
     private String cidade;
+    @Column(nullable = false)
     private String estado;
+    @Column(nullable = false)
     private String logradouro;
-    private String numero;
+    private Long numero;
     private String complemento;
+    @Column(nullable = false)
     private String bairro;
     private String pontoReferencia;
 
@@ -53,11 +62,11 @@ public class Endereco {
         this.logradouro = logradouro;
     }
 
-    public String getNumero() {
+    public Long getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(Long numero) {
         this.numero = numero;
     }
 

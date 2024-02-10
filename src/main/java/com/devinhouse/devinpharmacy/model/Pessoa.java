@@ -1,5 +1,6 @@
 package com.devinhouse.devinpharmacy.model;
 
+import com.devinhouse.devinpharmacy.model.dto.CriarClienteDTO;
 import com.devinhouse.devinpharmacy.model.dto.CriarUsuarioFarmaceuticoDTO;
 import jakarta.persistence.*;
 
@@ -51,6 +52,18 @@ public class Pessoa {
         this.email = farmaceutico.email();
         this.naturalidade = farmaceutico.naturalidade();
         this.estadoCivil = farmaceutico.estadoCivil();
+    }
+
+    public Pessoa(CriarClienteDTO cliente) {
+        this.nomeCompleto = cliente.nomeCompleto();
+        this.genero = cliente.genero();
+        this.dataNascimento = cliente.dataNascimento();
+        this.cpf = cliente.cpf();
+        this.rg = cliente.rg();
+        this.telefone = cliente.telefone();
+        this.email = cliente.email();
+        this.naturalidade = cliente.naturalidade();
+        this.estadoCivil = cliente.estadoCivil();
     }
 
     public Long getId() {
