@@ -10,15 +10,33 @@ public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String nomeCompleto;
+
+    @Column(nullable = false)
     private String genero;
+
+    @Column(nullable = false)
     private LocalDate dataNascimento;
+
+    @Column(nullable = false)
     private String cpf;
+
+    @Column(nullable = false)
     private String rg;
-    private String Telefone;
+
+    @Column(nullable = false)
+    private String telefone;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String naturalidade;
-   private EstadoCivil estadoCivil;
+
+    @Enumerated(EnumType.STRING)
+   private EstadoCivilEnum estadoCivil;
 
     public Long getId() {
         return id;
@@ -69,11 +87,11 @@ public class Pessoa {
     }
 
     public String getTelefone() {
-        return Telefone;
+        return telefone;
     }
 
     public void setTelefone(String telefone) {
-        Telefone = telefone;
+        telefone = telefone;
     }
 
     public String getEmail() {
@@ -92,11 +110,11 @@ public class Pessoa {
         this.naturalidade = naturalidade;
     }
 
-    public EstadoCivil getEstadoCivil() {
+    public EstadoCivilEnum getEstadoCivil() {
         return estadoCivil;
     }
 
-    public void setEstadoCivil(EstadoCivil estadoCivil) {
+    public void setEstadoCivil(EstadoCivilEnum estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
 }

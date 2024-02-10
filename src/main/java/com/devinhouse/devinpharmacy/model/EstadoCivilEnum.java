@@ -1,6 +1,6 @@
 package com.devinhouse.devinpharmacy.model;
 
-public enum EstadoCivil {
+public enum EstadoCivilEnum {
 
     SOLTEIRO,
     CASADO,
