@@ -3,6 +3,7 @@ package com.devinhouse.devinpharmacy.controller;
 import com.devinhouse.devinpharmacy.exception.CPFExistenteException;
 import com.devinhouse.devinpharmacy.exception.UsuarioNaoEcontratoException;
 import com.devinhouse.devinpharmacy.model.Usuarios;
+import com.devinhouse.devinpharmacy.model.dto.AtualizarSenhaUsuarioDTO;
 import com.devinhouse.devinpharmacy.model.dto.AtualizarUsuarioFarmaceuticoDTO;
 import com.devinhouse.devinpharmacy.model.dto.CriarUsuarioFarmaceuticoDTO;
 import com.devinhouse.devinpharmacy.model.dto.UsuarioFarmaceuticoDTO;
@@ -45,5 +46,17 @@ public class UsuariosController {
         }
     }
 
+
+    @PutMapping("/{identificador}/senha")
+    public ResponseEntity<?> atualizarSenha(@PathVariable("identificador") Long id, @Valid @RequestBody AtualizarSenhaUsuarioDTO usuario) {
+        try {
+            UsuarioFarmaceuticoDTO novoUsuario = usuarioService.atualizarSenhaUsuario(id, usuario);
+            return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
+        } catch (UsuarioNaoEcontratoException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
