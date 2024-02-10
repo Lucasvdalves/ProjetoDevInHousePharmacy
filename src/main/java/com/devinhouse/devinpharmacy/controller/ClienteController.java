@@ -13,24 +13,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
-    @Autowired
-    private ClienteService clienteService;
 
-    @PostMapping
-    public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) {
-        try {
-            Cliente novoCliente = clienteService.cadastrarCliente(cliente);
-            return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
-        } catch (DadosInvalidosException | CPFExistenteException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Cliente>> listarClientes(@RequestParam(required = false) String nome) {
-        List<Cliente> clientes = clienteService.listarClientes(nome);
-        return new ResponseEntity<>(clientes, HttpStatus.OK);
-    }
-
-    // Adicione outros endpoints conforme necessário
 }
