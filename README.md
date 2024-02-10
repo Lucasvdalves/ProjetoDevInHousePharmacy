@@ -22,11 +22,6 @@ Para garantir o sucesso do projeto, é fundamental compreender e seguir as regra
 
 4. **Segurança:** Implementar medidas de segurança robustas para proteger dados sensíveis, seguindo as melhores práticas do Spring Security.
 
-## Regras de Entrega
-Certifique-se de ler atentamente as regras de entrega do projeto, que serão fornecidas em documentos separados. Cumprir os prazos e requisitos estabelecidos é crucial para o sucesso do projeto.
-
-Estamos entusiasmados com o potencial impacto positivo que o **LABVaccine** pode ter na administração de vacinas em farmácias, e confiamos em sua capacidade de contribuir significativamente para o sucesso deste projeto.
-
-Boa sorte e que tenhamos um desenvolvimento de software bem-sucedido!
+## Que tenhamos um desenvolvimento de software bem-sucedido!
 
 Atenciosamente,
