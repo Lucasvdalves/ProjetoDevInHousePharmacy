@@ -1,5 +1,6 @@
 package com.devinhouse.devinpharmacy.model;
 
+import com.devinhouse.devinpharmacy.model.dto.CriarUsuarioFarmaceuticoDTO;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -8,7 +9,7 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Pessoa {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(nullable = false)
@@ -37,6 +38,20 @@ public class Pessoa {
 
     @Enumerated(EnumType.STRING)
    private EstadoCivilEnum estadoCivil;
+
+    public Pessoa() {
+    }
+    public Pessoa(CriarUsuarioFarmaceuticoDTO farmaceutico) {
+        this.nomeCompleto = farmaceutico.nomeCompleto();
+        this.genero = farmaceutico.genero();
+        this.dataNascimento = farmaceutico.dataNascimento();
+        this.cpf = farmaceutico.cpf();
+        this.rg = farmaceutico.rg();
+        this.telefone = farmaceutico.telefone();
+        this.email = farmaceutico.email();
+        this.naturalidade = farmaceutico.naturalidade();
+        this.estadoCivil = farmaceutico.estadoCivil();
+    }
 
     public Long getId() {
         return id;
