@@ -7,6 +7,7 @@ import com.devinhouse.devinpharmacy.model.Usuarios;
 import com.devinhouse.devinpharmacy.model.Vacina;
 import com.devinhouse.devinpharmacy.model.dto.AtualizarVacinaDTO;
 import com.devinhouse.devinpharmacy.model.dto.CadastrarVacinaDTO;
+import com.devinhouse.devinpharmacy.model.dto.EnderecoDTO;
 import com.devinhouse.devinpharmacy.model.dto.VacinaDTO;
 import com.devinhouse.devinpharmacy.repository.ClienteRepository;
 import com.devinhouse.devinpharmacy.repository.UsuariosRepository;
@@ -14,6 +15,8 @@ import com.devinhouse.devinpharmacy.repository.VacinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class VacinaService {
@@ -43,4 +46,9 @@ public class VacinaService {
         vacinaAtualizada.setObservacoes(vacina.observacoes() != null ? vacina.observacoes() : vacinaAtualizada.getObservacoes());
         return new VacinaDTO(vacinaAtualizada);
     }
+
+    public List<VacinaDTO> listarVacinasDTO() {
+        return this.vacinaRepository.findAll().stream().map(VacinaDTO::new).toList();
+    }
+
 }
