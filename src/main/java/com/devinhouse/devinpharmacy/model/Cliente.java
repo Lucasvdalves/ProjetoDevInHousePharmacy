@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Cliente extends Pessoa {
@@ -14,6 +16,8 @@ public class Cliente extends Pessoa {
     private String convenio;
     private String numeroCarteiraConvenio;
     private LocalDate validadeCarteiraConvenio;
+    @OneToMany(mappedBy = "cliente")
+    private Set<Vacina> vacinas = new HashSet<>();
     @ManyToOne
     @JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = false)
     private Endereco endereco;
@@ -69,5 +73,12 @@ public class Cliente extends Pessoa {
         this.validadeCarteiraConvenio = validadeCarteiraConvenio;
     }
 
+    public Set<Vacina> getVacinas() {
+        return vacinas;
+    }
+
+    public void setVacinas(Set<Vacina> vacinas) {
+        this.vacinas = vacinas;
+    }
 
 }
