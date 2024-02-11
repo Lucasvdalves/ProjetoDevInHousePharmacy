@@ -27,6 +27,9 @@ public class Vacina {
     @JoinColumn(name = "idFarmaceutico", nullable = false)
     private Usuarios farmaceutico;
 
+
+    public Vacina() {
+    }
     public Vacina(CadastrarVacinaDTO vacina, Usuarios usuarios, Cliente cliente) {
         this.nomeVacina = vacina.nome();
         this.dataHoraAdministracao = LocalDateTime.now();
