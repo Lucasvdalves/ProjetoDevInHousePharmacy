@@ -1,13 +1,23 @@
 package com.devinhouse.devinpharmacy.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.devinhouse.devinpharmacy.model.dto.CriarEnderecoDTO;
+import com.devinhouse.devinpharmacy.model.dto.EnderecoDTO;
+import com.devinhouse.devinpharmacy.service.EnderecoService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/enderecos")
 public class EnderecoController {
     @Autowired
     private EnderecoService enderecoService;
+
+
     @PostMapping
     public ResponseEntity<?> cadastroEndereco(@Valid @RequestBody CriarEnderecoDTO endereco) {
         try {
@@ -18,4 +28,9 @@ public class EnderecoController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<List<EnderecoDTO>> listarEndereco() {
+        List<EnderecoDTO> enderecoDTOS = this.enderecoService.listaEnderecoDTO();
+        return enderecoDTOS.isEmpty() ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(enderecoDTOS, HttpStatus.OK);
+    }
 }
