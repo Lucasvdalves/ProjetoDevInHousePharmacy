@@ -1,16 +1,14 @@
 package com.devinhouse.devinpharmacy.controller;
 
-import com.devinhouse.devinpharmacy.model.dto.CadastrarVacinaDTO;
-import com.devinhouse.devinpharmacy.model.dto.VacinaDTO;
+import com.devinhouse.devinpharmacy.exception.UsuarioNaoEcontratoException;
+import com.devinhouse.devinpharmacy.exception.VacinaNaoEcontradaException;
+import com.devinhouse.devinpharmacy.model.dto.*;
 import com.devinhouse.devinpharmacy.service.VacinaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/vacinas")
@@ -26,4 +24,18 @@ public class VacinaController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/{identificador}")
+    public ResponseEntity<?> atulizarVacina(@PathVariable("identificador") Long id, @Valid @RequestBody AtualizarVacinaDTO vacina) {
+        try {
+            VacinaDTO vacinaDTO = vacinaService.atualizarVacina(id, vacina);
+            return new ResponseEntity<>(vacinaDTO, HttpStatus.CREATED);
+        } catch (VacinaNaoEcontradaException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 }

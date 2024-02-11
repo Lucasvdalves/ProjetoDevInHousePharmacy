@@ -1,9 +1,11 @@
 package com.devinhouse.devinpharmacy.service;
 
 import com.devinhouse.devinpharmacy.exception.UsuarioNaoEcontratoException;
+import com.devinhouse.devinpharmacy.exception.VacinaNaoEcontradaException;
 import com.devinhouse.devinpharmacy.model.Cliente;
 import com.devinhouse.devinpharmacy.model.Usuarios;
 import com.devinhouse.devinpharmacy.model.Vacina;
+import com.devinhouse.devinpharmacy.model.dto.AtualizarVacinaDTO;
 import com.devinhouse.devinpharmacy.model.dto.CadastrarVacinaDTO;
 import com.devinhouse.devinpharmacy.model.dto.VacinaDTO;
 import com.devinhouse.devinpharmacy.repository.ClienteRepository;
@@ -34,4 +36,11 @@ public class VacinaService {
         return new VacinaDTO(novaVacina);
     }
 
+    @Transactional
+    public VacinaDTO atualizarVacina(Long id, AtualizarVacinaDTO vacina) throws VacinaNaoEcontradaException {
+        Vacina vacinaAtualizada = vacinaRepository.findById(id).orElseThrow(() -> new VacinaNaoEcontradaException("Vacina não encontrada"));
+        vacinaAtualizada.setTipoVacina(vacina.tipoVacina() != null ? vacina.tipoVacina() : vacinaAtualizada.getTipoVacina());
+        vacinaAtualizada.setObservacoes(vacina.observacoes() != null ? vacina.observacoes() : vacinaAtualizada.getObservacoes());
+        return new VacinaDTO(vacinaAtualizada);
+    }
 }
