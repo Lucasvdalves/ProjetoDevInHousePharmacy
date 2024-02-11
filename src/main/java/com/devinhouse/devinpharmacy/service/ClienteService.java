@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ClienteService {
     @Autowired
@@ -48,5 +50,12 @@ public class ClienteService {
         this.clienteRepository.save(clienteAtualizado);
         return new ClienteDTO(clienteAtualizado);
 
+    }
+
+    public List<ClienteDTO> listarCliente(String nome) {
+        if(nome != null){
+            return this.clienteRepository.findByNomeCompleto(nome).stream().map(ClienteDTO::new).toList();
+        }
+        return this.clienteRepository.findAll().stream().map(ClienteDTO::new).toList();
     }
 }

@@ -37,4 +37,5 @@ public record ClienteDTO(Long id,
                 clienteCriado.getNumeroCarteiraConvenio(),
                 clienteCriado.getValidadeCarteiraConvenio());
     }
+
 }
