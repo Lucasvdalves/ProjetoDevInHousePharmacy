@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/vacinas")
 public class VacinaController {
@@ -36,6 +38,10 @@ public class VacinaController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
+    @GetMapping
+    public ResponseEntity<List<VacinaDTO>> listarVacina() {
+        List<VacinaDTO> vacinasDTO = this.vacinaService.listarVacinasDTO();
+        return vacinasDTO.isEmpty() ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(vacinasDTO, HttpStatus.OK);
+    }
 
 }
