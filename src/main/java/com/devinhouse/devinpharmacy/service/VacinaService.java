@@ -51,4 +51,9 @@ public class VacinaService {
         return this.vacinaRepository.findAll().stream().map(VacinaDTO::new).toList();
     }
 
+    public void deletarVacina(Long id) throws VacinaNaoEcontradaException {
+        this.vacinaRepository.findById(id).orElseThrow(() -> new VacinaNaoEcontradaException("Vacina não encontrada"));
+        this.vacinaRepository.deleteById(id);
+
+    }
 }

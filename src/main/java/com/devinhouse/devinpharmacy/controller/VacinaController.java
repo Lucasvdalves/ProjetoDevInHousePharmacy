@@ -1,6 +1,7 @@
 package com.devinhouse.devinpharmacy.controller;
 
 import com.devinhouse.devinpharmacy.exception.UsuarioNaoEcontratoException;
+import com.devinhouse.devinpharmacy.exception.UsuarioPossuiVacinaException;
 import com.devinhouse.devinpharmacy.exception.VacinaNaoEcontradaException;
 import com.devinhouse.devinpharmacy.model.dto.*;
 import com.devinhouse.devinpharmacy.service.VacinaService;
@@ -44,6 +45,16 @@ public class VacinaController {
         return vacinasDTO.isEmpty() ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(vacinasDTO, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{identificador}")
+    public ResponseEntity<?> excluirVacina(@PathVariable("identificador") Long id) {
+        try {
+            vacinaService.deletarVacina(id);
+            return ResponseEntity.noContent().build();
 
+        } catch (VacinaNaoEcontradaException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+
+    }
 
 }
