@@ -1,5 +1,6 @@
 package com.devinhouse.devinpharmacy.model;
 
+import com.devinhouse.devinpharmacy.model.dto.CriarEnderecoDTO;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,6 +21,17 @@ public class Endereco {
     @Column(nullable = false)
     private String bairro;
     private String pontoReferencia;
+
+    public Endereco(CriarEnderecoDTO endereco) {
+        this.cep = endereco.cep();
+        this.cidade = endereco.cidade();
+        this.estado = endereco.estado();
+        this.logradouro = endereco.logradouro();
+        this.numero = endereco.numero();
+        this.complemento = endereco.complemento();
+        this.bairro = endereco.bairro();
+        this.pontoReferencia = endereco.pontoReferencia();
+    }
 
 
     public Long getId() {
