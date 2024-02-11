@@ -50,5 +50,15 @@ public class ClienteController {
         return clienteDTOS.isEmpty() ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(clienteDTOS, HttpStatus.OK);
     }
 
+    @GetMapping("/{identificador}")
+    public ResponseEntity<?> buscarClienteID(@PathVariable("identificador") Long id) {
+        try {
+            ClienteDTO busarClientePorID = clienteService.buscarClienteID(id);
+            return new ResponseEntity<>(busarClientePorID, HttpStatus.OK);
+        } catch (UsuarioNaoEcontratoException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+
+    }
 
 }

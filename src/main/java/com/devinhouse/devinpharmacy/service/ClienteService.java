@@ -53,9 +53,14 @@ public class ClienteService {
     }
 
     public List<ClienteDTO> listarCliente(String nome) {
-        if(nome != null){
+        if (nome != null) {
             return this.clienteRepository.findByNomeCompleto(nome).stream().map(ClienteDTO::new).toList();
         }
         return this.clienteRepository.findAll().stream().map(ClienteDTO::new).toList();
+    }
+
+    public ClienteDTO buscarClienteID(Long id) throws UsuarioNaoEcontratoException {
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new UsuarioNaoEcontratoException("Cliente não encontrado"));
+        return new ClienteDTO(cliente);
     }
 }
