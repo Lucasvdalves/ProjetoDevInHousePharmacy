@@ -61,4 +61,16 @@ public class ClienteController {
 
     }
 
+    @DeleteMapping("/{identificador}")
+    public ResponseEntity<?> excluiCliente(@PathVariable("identificador") Long id) {
+        try {
+            clienteService.deletarCliente(id);
+            return ResponseEntity.noContent().build();
+
+        } catch (UsuarioNaoEcontratoException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+
+    }
+
 }

@@ -63,4 +63,9 @@ public class ClienteService {
         Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new UsuarioNaoEcontratoException("Cliente não encontrado"));
         return new ClienteDTO(cliente);
     }
+    @Transactional
+    public void deletarCliente(Long id) throws UsuarioNaoEcontratoException {
+        this.clienteRepository.findById(id).orElseThrow(() -> new UsuarioNaoEcontratoException("Cliente não encontrado"));
+        this.clienteRepository.deleteById(id);
+    }
 }
