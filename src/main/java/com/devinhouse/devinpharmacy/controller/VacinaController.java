@@ -44,4 +44,6 @@ public class VacinaController {
         return vacinasDTO.isEmpty() ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(vacinasDTO, HttpStatus.OK);
     }
 
+
+
 }
