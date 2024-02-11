@@ -3,6 +3,7 @@ package com.devinhouse.devinpharmacy.service;
 import com.devinhouse.devinpharmacy.exception.CPFExistenteException;
 import com.devinhouse.devinpharmacy.exception.EnderecoNaoEcontradoException;
 import com.devinhouse.devinpharmacy.exception.UsuarioNaoEcontratoException;
+import com.devinhouse.devinpharmacy.exception.UsuarioPossuiVacinaException;
 import com.devinhouse.devinpharmacy.model.Cliente;
 import com.devinhouse.devinpharmacy.model.Endereco;
 import com.devinhouse.devinpharmacy.model.Usuarios;
@@ -64,8 +65,12 @@ public class ClienteService {
         return new ClienteDTO(cliente);
     }
     @Transactional
-    public void deletarCliente(Long id) throws UsuarioNaoEcontratoException {
-        this.clienteRepository.findById(id).orElseThrow(() -> new UsuarioNaoEcontratoException("Cliente não encontrado"));
+    public void deletarCliente(Long id) throws UsuarioNaoEcontratoException, UsuarioPossuiVacinaException {
+        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(() -> new UsuarioNaoEcontratoException("Cliente não encontrado"));
+        if(!cliente.getVacinas().isEmpty()){
+            throw new UsuarioPossuiVacinaException("Cliente possui vacinas cadastradas");
+
+        }
         this.clienteRepository.deleteById(id);
     }
 }

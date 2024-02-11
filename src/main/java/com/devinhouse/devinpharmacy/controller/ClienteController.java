@@ -2,6 +2,7 @@ package com.devinhouse.devinpharmacy.controller;
 
 import com.devinhouse.devinpharmacy.exception.CPFExistenteException;
 import com.devinhouse.devinpharmacy.exception.UsuarioNaoEcontratoException;
+import com.devinhouse.devinpharmacy.exception.UsuarioPossuiVacinaException;
 import com.devinhouse.devinpharmacy.model.Cliente;
 import com.devinhouse.devinpharmacy.model.dto.*;
 import com.devinhouse.devinpharmacy.service.ClienteService;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/clientes")
 public class ClienteController {
     @Autowired
     private ClienteService clienteService;
@@ -69,6 +70,8 @@ public class ClienteController {
 
         } catch (UsuarioNaoEcontratoException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (UsuarioPossuiVacinaException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
     }

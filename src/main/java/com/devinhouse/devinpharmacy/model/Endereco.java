@@ -22,6 +22,9 @@ public class Endereco {
     private String bairro;
     private String pontoReferencia;
 
+    public Endereco() {
+    }
+
     public Endereco(CriarEnderecoDTO endereco) {
         this.cep = endereco.cep();
         this.cidade = endereco.cidade();

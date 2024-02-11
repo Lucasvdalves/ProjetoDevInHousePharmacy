@@ -22,6 +22,9 @@ public class Cliente extends Pessoa {
     @JoinColumn(name = "endereco_id", referencedColumnName = "id", nullable = false)
     private Endereco endereco;
 
+    public Cliente() {
+    }
+
     public Cliente(CriarClienteDTO cliente, Endereco endereco) {
         super(cliente);
         this.contatoEmergencia = cliente.contatoEmergencia();
