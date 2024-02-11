@@ -35,4 +35,18 @@ public class ClienteService {
         return new ClienteDTO(clienteCriado);
     }
 
+    @Transactional
+    public ClienteDTO atualizarCliente(Long id, AtualizarClienteDTO cliente) throws UsuarioNaoEcontratoException {
+        Cliente clienteAtualizado = this.clienteRepository.findById(id).orElseThrow(() -> new UsuarioNaoEcontratoException("Cliente não encontrado"));
+        clienteAtualizado.setEmail(cliente.email() != null ? cliente.email() : clienteAtualizado.getEmail());
+        clienteAtualizado.setTelefone(cliente.telefone() != null ? cliente.telefone() : clienteAtualizado.getTelefone());
+        clienteAtualizado.setCpf(cliente.cpf() != null ? cliente.cpf() : clienteAtualizado.getCpf());
+        clienteAtualizado.setRg(cliente.rg() != null ? cliente.rg() : clienteAtualizado.getRg());
+        clienteAtualizado.setNomeCompleto(cliente.nomeCompleto() != null ? cliente.nomeCompleto() : clienteAtualizado.getNomeCompleto());
+        clienteAtualizado.setGenero(cliente.genero() != null ? cliente.genero() : clienteAtualizado.getGenero());
+        clienteAtualizado.setDataNascimento(cliente.dataNascimento() != null ? cliente.dataNascimento() : clienteAtualizado.getDataNascimento());
+        this.clienteRepository.save(clienteAtualizado);
+        return new ClienteDTO(clienteAtualizado);
+
+    }
 }
